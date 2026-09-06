@@ -1,5 +1,9 @@
 // Escena de juego: tablero con 6 agujeros (Tarea 4), marcador y
-// temporizador (Tarea 5).
+// temporizador (Tarea 5), aparición de personajes (Tarea 6).
+const CHARACTER_SPAWN_DELAY = 800;
+const CHARACTER_MIN_VISIBLE_TIME = 1000;
+const CHARACTER_MAX_VISIBLE_TIME = 2000;
+
 class GameScene extends Phaser.Scene {
 	constructor() {
 		super('GameScene');
@@ -40,6 +44,16 @@ class GameScene extends Phaser.Scene {
 			callback: this.onTimerTick,
 			callbackScope: this,
 		});
+
+		// Estado de ocupación de cada agujero y personaje visible en él.
+		this.holeCharacters = new Array(this.holePositions.length).fill(null);
+
+		this.time.addEvent({
+			delay: CHARACTER_SPAWN_DELAY,
+			loop: true,
+			callback: this.spawnCharacter,
+			callbackScope: this,
+		});
 	}
 
 	onTimerTick() {
@@ -49,5 +63,31 @@ class GameScene extends Phaser.Scene {
 
 		this.timeLeft -= 1;
 		this.timerText.setText(`Tiempo: ${this.timeLeft}`);
+	}
+
+	spawnCharacter() {
+		const freeHoleIndexes = this.holeCharacters
+			.map((character, index) => (character ? -1 : index))
+			.filter((index) => index !== -1);
+
+		if (freeHoleIndexes.length === 0) {
+			return;
+		}
+
+		const holeIndex = Phaser.Utils.Array.GetRandom(freeHoleIndexes);
+		const pos = this.holePositions[holeIndex];
+
+		const character = this.add.ellipse(pos.x, pos.y - 30, 90, 110, 0x8d6e63);
+		this.holeCharacters[holeIndex] = character;
+
+		const visibleTime = Phaser.Math.Between(
+			CHARACTER_MIN_VISIBLE_TIME,
+			CHARACTER_MAX_VISIBLE_TIME,
+		);
+
+		this.time.delayedCall(visibleTime, () => {
+			character.destroy();
+			this.holeCharacters[holeIndex] = null;
+		});
 	}
 }
