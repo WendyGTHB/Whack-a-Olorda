@@ -1,4 +1,5 @@
-// Escena de fin de partida: muestra la puntuación y el récord (Tareas 9-10).
+// Escena de fin de partida: muestra la puntuación y el récord (Tareas 9-10)
+// y permite volver a jugar o ir al inicio (Tarea 11).
 const HIGHSCORE_KEY = 'whackAOlordaHighscore';
 
 class GameOverScene extends Phaser.Scene {
@@ -27,6 +28,30 @@ class GameOverScene extends Phaser.Scene {
 			fontSize: '32px',
 			color: '#ffffff',
 		}).setOrigin(0.5);
+
+		const restartButton = this.add.text(640, 490, 'Jugar de nuevo', {
+			fontSize: '32px',
+			color: '#ffffff',
+			backgroundColor: '#2e7d32',
+			padding: { x: 24, y: 12 },
+		}).setOrigin(0.5);
+
+		restartButton.setInteractive({ useHandCursor: true });
+		restartButton.on('pointerdown', () => {
+			this.scene.start('GameScene');
+		});
+
+		const menuButton = this.add.text(640, 560, 'Volver al inicio', {
+			fontSize: '32px',
+			color: '#ffffff',
+			backgroundColor: '#37474f',
+			padding: { x: 24, y: 12 },
+		}).setOrigin(0.5);
+
+		menuButton.setInteractive({ useHandCursor: true });
+		menuButton.on('pointerdown', () => {
+			this.scene.start('StartScene');
+		});
 	}
 
 	updateHighscore(score) {
