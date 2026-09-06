@@ -1,4 +1,5 @@
-// Escena de juego: tablero con 6 agujeros (Tarea 4).
+// Escena de juego: tablero con 6 agujeros (Tarea 4), marcador y
+// temporizador (Tarea 5).
 class GameScene extends Phaser.Scene {
 	constructor() {
 		super('GameScene');
@@ -20,9 +21,33 @@ class GameScene extends Phaser.Scene {
 			this.add.ellipse(pos.x, pos.y, 160, 100, 0x3e2723);
 		});
 
-		this.add.text(640, 100, 'Game Scene', {
-			fontSize: '48px',
+		this.score = 0;
+		this.timeLeft = 30;
+
+		this.scoreText = this.add.text(40, 40, `Puntuación: ${this.score}`, {
+			fontSize: '32px',
 			color: '#ffffff',
-		}).setOrigin(0.5);
+		});
+
+		this.timerText = this.add.text(1240, 40, `Tiempo: ${this.timeLeft}`, {
+			fontSize: '32px',
+			color: '#ffffff',
+		}).setOrigin(1, 0);
+
+		this.time.addEvent({
+			delay: 1000,
+			loop: true,
+			callback: this.onTimerTick,
+			callbackScope: this,
+		});
+	}
+
+	onTimerTick() {
+		if (this.timeLeft <= 0) {
+			return;
+		}
+
+		this.timeLeft -= 1;
+		this.timerText.setText(`Tiempo: ${this.timeLeft}`);
 	}
 }
