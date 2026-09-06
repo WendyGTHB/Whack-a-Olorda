@@ -1,9 +1,19 @@
 // Escena de juego: tablero con 6 agujeros (Tarea 4), marcador y
 // temporizador (Tarea 5), aparición de personajes (Tarea 6),
-// clic y puntuación del personaje normal (Tarea 7).
+// clic y puntuación del personaje normal (Tarea 7), tipos de
+// personajes y probabilidades (Tarea 8).
 const CHARACTER_SPAWN_DELAY = 800;
 const CHARACTER_MIN_VISIBLE_TIME = 1000;
 const CHARACTER_MAX_VISIBLE_TIME = 2000;
+
+// Tipos de personaje con sus puntos, color placeholder y probabilidad de
+// aparición (deben sumar 1).
+const CHARACTER_TYPES = [
+	{ name: 'normal', points: 1, color: 0x8d6e63, probability: 0.5 },
+	{ name: 'especial', points: 2, color: 0xffd54f, probability: 0.15 },
+	{ name: 'superior', points: 5, color: 0x42a5f5, probability: 0.1 },
+	{ name: 'bomba', points: -3, color: 0x212121, probability: 0.25 },
+];
 
 class GameScene extends Phaser.Scene {
 	constructor() {
@@ -77,8 +87,10 @@ class GameScene extends Phaser.Scene {
 
 		const holeIndex = Phaser.Utils.Array.GetRandom(freeHoleIndexes);
 		const pos = this.holePositions[holeIndex];
+		const type = this.pickCharacterType();
 
-		const character = this.add.ellipse(pos.x, pos.y - 30, 90, 110, 0x8d6e63);
+		const character = this.add.ellipse(pos.x, pos.y - 30, 90, 110, type.color);
+		character.characterType = type;
 		character.setInteractive();
 		character.on('pointerdown', () => this.onCharacterClicked(holeIndex));
 		this.holeCharacters[holeIndex] = character;
@@ -91,6 +103,22 @@ class GameScene extends Phaser.Scene {
 		character.hideTimer = this.time.delayedCall(visibleTime, () => {
 			this.hideCharacter(holeIndex);
 		});
+	}
+
+	// Elige un tipo de personaje al azar respetando las probabilidades
+	// definidas en CHARACTER_TYPES.
+	pickCharacterType() {
+		const roll = Math.random();
+		let cumulative = 0;
+
+		for (const type of CHARACTER_TYPES) {
+			cumulative += type.probability;
+			if (roll < cumulative) {
+				return type;
+			}
+		}
+
+		return CHARACTER_TYPES[CHARACTER_TYPES.length - 1];
 	}
 
 	// Oculta el personaje del agujero indicado y libera el agujero.
@@ -111,7 +139,7 @@ class GameScene extends Phaser.Scene {
 		}
 
 		character.hideTimer.remove();
-		this.score += 1;
+		this.score = Math.max(0, this.score + character.characterType.points);
 		this.scoreText.setText(`Puntuación: ${this.score}`);
 		this.hideCharacter(holeIndex);
 	}
