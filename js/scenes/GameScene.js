@@ -1,7 +1,7 @@
 // Escena de juego: tablero con 6 agujeros (Tarea 4), marcador y
 // temporizador (Tarea 5), aparición de personajes (Tarea 6),
 // clic y puntuación del personaje normal (Tarea 7), tipos de
-// personajes y probabilidades (Tarea 8).
+// personajes y probabilidades (Tarea 8), fin de partida (Tarea 9).
 const CHARACTER_SPAWN_DELAY = 800;
 const CHARACTER_MIN_VISIBLE_TIME = 1000;
 const CHARACTER_MAX_VISIBLE_TIME = 2000;
@@ -59,7 +59,7 @@ class GameScene extends Phaser.Scene {
 		// Estado de ocupación de cada agujero y personaje visible en él.
 		this.holeCharacters = new Array(this.holePositions.length).fill(null);
 
-		this.time.addEvent({
+		this.spawnEvent = this.time.addEvent({
 			delay: CHARACTER_SPAWN_DELAY,
 			loop: true,
 			callback: this.spawnCharacter,
@@ -74,6 +74,16 @@ class GameScene extends Phaser.Scene {
 
 		this.timeLeft -= 1;
 		this.timerText.setText(`Tiempo: ${this.timeLeft}`);
+
+		if (this.timeLeft <= 0) {
+			this.endGame();
+		}
+	}
+
+	// Detiene la aparición de personajes y pasa a la pantalla de Game Over.
+	endGame() {
+		this.spawnEvent.remove();
+		this.scene.start('GameOverScene', { score: this.score });
 	}
 
 	spawnCharacter() {
