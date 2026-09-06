@@ -29,3 +29,22 @@ No dupliques el contenido de estos documentos; consúltalos y enlázalos.
 - No empezar una tarea nueva hasta que la anterior esté verificada
 	manualmente (según sus criterios de aceptación) e integrada en `main`.
 - No implementar funcionalidad de tareas futuras por adelantado.
+
+## Cómo probar antes de un pull request o merge
+
+Este proyecto se desarrolla en un Codespace, así que no hay un navegador de
+"host" al que abrir `index.html` directamente con doble clic. Además, abrirlo
+como `file://` rompe la carga de assets de Phaser por restricciones CORS del
+navegador. Por eso, incluso sin backend, hay que servirlo por HTTP:
+
+La verificación es siempre manual, en un navegador real:
+
+1. Servir el proyecto con un servidor estático local (ya viene instalado,
+	 sin dependencias nuevas): `python3 -m http.server 8123` desde la raíz
+	 del repositorio.
+2. VS Code reenvía automáticamente el puerto abierto en el Codespace a una
+	 URL pública tipo `https://<nombre-codespace>-8123.app.github.dev`;
+	 abrirla con `"$BROWSER" <esa-url>/index.html`.
+3. Revisar visualmente la pantalla y la consola de DevTools (sin errores) según
+	 los criterios de aceptación de la tarea en curso.
+4. Detener el servidor una vez terminada la verificación.
