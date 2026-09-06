@@ -1,5 +1,6 @@
 // Escena de juego: tablero con 6 agujeros (Tarea 4), marcador y
-// temporizador (Tarea 5), aparición de personajes (Tarea 6).
+// temporizador (Tarea 5), aparición de personajes (Tarea 6),
+// clic y puntuación del personaje normal (Tarea 7).
 const CHARACTER_SPAWN_DELAY = 800;
 const CHARACTER_MIN_VISIBLE_TIME = 1000;
 const CHARACTER_MAX_VISIBLE_TIME = 2000;
@@ -78,6 +79,8 @@ class GameScene extends Phaser.Scene {
 		const pos = this.holePositions[holeIndex];
 
 		const character = this.add.ellipse(pos.x, pos.y - 30, 90, 110, 0x8d6e63);
+		character.setInteractive();
+		character.on('pointerdown', () => this.onCharacterClicked(holeIndex));
 		this.holeCharacters[holeIndex] = character;
 
 		const visibleTime = Phaser.Math.Between(
@@ -85,9 +88,31 @@ class GameScene extends Phaser.Scene {
 			CHARACTER_MAX_VISIBLE_TIME,
 		);
 
-		this.time.delayedCall(visibleTime, () => {
-			character.destroy();
-			this.holeCharacters[holeIndex] = null;
+		character.hideTimer = this.time.delayedCall(visibleTime, () => {
+			this.hideCharacter(holeIndex);
 		});
+	}
+
+	// Oculta el personaje del agujero indicado y libera el agujero.
+	hideCharacter(holeIndex) {
+		const character = this.holeCharacters[holeIndex];
+		if (!character) {
+			return;
+		}
+
+		character.destroy();
+		this.holeCharacters[holeIndex] = null;
+	}
+
+	onCharacterClicked(holeIndex) {
+		const character = this.holeCharacters[holeIndex];
+		if (!character) {
+			return;
+		}
+
+		character.hideTimer.remove();
+		this.score += 1;
+		this.scoreText.setText(`Puntuación: ${this.score}`);
+		this.hideCharacter(holeIndex);
 	}
 }
