@@ -1,7 +1,8 @@
 // Escena de juego: tablero con 6 agujeros (Tarea 4), marcador y
 // temporizador (Tarea 5), aparición de personajes (Tarea 6),
 // clic y puntuación del personaje normal (Tarea 7), tipos de
-// personajes y probabilidades (Tarea 8), fin de partida (Tarea 9).
+// personajes y probabilidades (Tarea 8), fin de partida (Tarea 9),
+// pausa durante la partida (Tarea 12).
 const CHARACTER_SPAWN_DELAY = 800;
 const CHARACTER_MIN_VISIBLE_TIME = 1000;
 const CHARACTER_MAX_VISIBLE_TIME = 2000;
@@ -65,6 +66,15 @@ class GameScene extends Phaser.Scene {
 			callback: this.spawnCharacter,
 			callbackScope: this,
 		});
+
+		this.isPaused = false;
+		this.pauseButton = this.add.text(640, 40, 'Pausa', {
+			fontSize: '28px',
+			color: '#ffffff',
+			backgroundColor: '#37474f',
+			padding: { x: 16, y: 8 },
+		}).setOrigin(0.5, 0).setInteractive({ useHandCursor: true });
+		this.pauseButton.on('pointerdown', () => this.pauseGame());
 	}
 
 	onTimerTick() {
@@ -152,5 +162,76 @@ class GameScene extends Phaser.Scene {
 		this.score = Math.max(0, this.score + character.characterType.points);
 		this.scoreText.setText(`Puntuación: ${this.score}`);
 		this.hideCharacter(holeIndex);
+	}
+
+	// Detiene el temporizador y la aparición de personajes, y muestra el
+	// menú de pausa. Los personajes visibles quedan congelados tal cual.
+	pauseGame() {
+		if (this.isPaused) {
+			return;
+		}
+
+		this.isPaused = true;
+		this.time.paused = true;
+		this.pauseButton.disableInteractive();
+		this.holeCharacters.forEach((character) => {
+			if (character) {
+				character.disableInteractive();
+			}
+		});
+
+		this.showPauseMenu();
+	}
+
+	showPauseMenu() {
+		const background = this.add.rectangle(640, 360, 1280, 720, 0x000000, 0.7);
+		const title = this.add.text(640, 260, 'Pausa', {
+			fontSize: '48px',
+			color: '#ffffff',
+		}).setOrigin(0.5);
+
+		const resumeButton = this.add.text(640, 360, 'Reanudar', {
+			fontSize: '32px',
+			color: '#ffffff',
+			backgroundColor: '#2e7d32',
+			padding: { x: 20, y: 10 },
+		}).setOrigin(0.5).setInteractive({ useHandCursor: true });
+		resumeButton.on('pointerdown', () => this.resumeGame());
+
+		const exitButton = this.add.text(640, 440, 'Salir al inicio', {
+			fontSize: '32px',
+			color: '#ffffff',
+			backgroundColor: '#b71c1c',
+			padding: { x: 20, y: 10 },
+		}).setOrigin(0.5).setInteractive({ useHandCursor: true });
+		exitButton.on('pointerdown', () => this.exitToStart());
+
+		this.pauseOverlay = this.add.container(0, 0, [background, title, resumeButton, exitButton]);
+	}
+
+	// Reanuda la partida exactamente donde se quedó: temporizador y
+	// aparición de personajes vuelven a activarse.
+	resumeGame() {
+		if (!this.isPaused) {
+			return;
+		}
+
+		this.isPaused = false;
+		this.time.paused = false;
+		this.pauseButton.setInteractive();
+		this.holeCharacters.forEach((character) => {
+			if (character) {
+				character.setInteractive();
+			}
+		});
+
+		this.pauseOverlay.destroy();
+		this.pauseOverlay = null;
+	}
+
+	// Descarta la partida en curso y vuelve a la pantalla de inicio.
+	exitToStart() {
+		this.spawnEvent.remove();
+		this.scene.start('StartScene');
 	}
 }
