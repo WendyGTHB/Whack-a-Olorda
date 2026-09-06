@@ -4,6 +4,11 @@ const config = {
 	width: 1280,
 	height: 720,
 	parent: 'game-container',
+	scale: {
+		// Escalado responsive manteniendo la proporción 16:9 (Tarea 14).
+		mode: Phaser.Scale.FIT,
+		autoCenter: Phaser.Scale.CENTER_BOTH,
+	},
 	scene: [BootScene, StartScene, GameScene, GameOverScene],
 };
 
