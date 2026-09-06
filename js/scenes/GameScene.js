@@ -2,7 +2,8 @@
 // temporizador (Tarea 5), aparición de personajes (Tarea 6),
 // clic y puntuación del personaje normal (Tarea 7), tipos de
 // personajes y probabilidades (Tarea 8), fin de partida (Tarea 9),
-// pausa durante la partida (Tarea 12).
+// pausa durante la partida (Tarea 12), confirmación al salir desde
+// pausa (Tarea 13).
 const CHARACTER_SPAWN_DELAY = 800;
 const CHARACTER_MIN_VISIBLE_TIME = 1000;
 const CHARACTER_MAX_VISIBLE_TIME = 2000;
@@ -204,9 +205,52 @@ class GameScene extends Phaser.Scene {
 			backgroundColor: '#b71c1c',
 			padding: { x: 20, y: 10 },
 		}).setOrigin(0.5).setInteractive({ useHandCursor: true });
-		exitButton.on('pointerdown', () => this.exitToStart());
+		exitButton.on('pointerdown', () => this.showExitConfirmation());
 
 		this.pauseOverlay = this.add.container(0, 0, [background, title, resumeButton, exitButton]);
+	}
+
+	// Muestra la confirmación antes de descartar la partida desde la pausa.
+	showExitConfirmation() {
+		const background = this.add.rectangle(640, 360, 1280, 720, 0x000000, 0.85);
+		const message = this.add.text(
+			640,
+			320,
+			'¿Seguro que quieres salir?\nPerderás el progreso de esta partida.',
+			{ fontSize: '28px', color: '#ffffff', align: 'center' },
+		).setOrigin(0.5);
+
+		const confirmButton = this.add.text(520, 420, 'Salir', {
+			fontSize: '32px',
+			color: '#ffffff',
+			backgroundColor: '#b71c1c',
+			padding: { x: 20, y: 10 },
+		}).setOrigin(0.5).setInteractive({ useHandCursor: true });
+		confirmButton.on('pointerdown', () => this.exitToStart());
+
+		const cancelButton = this.add.text(760, 420, 'Cancelar', {
+			fontSize: '32px',
+			color: '#ffffff',
+			backgroundColor: '#37474f',
+			padding: { x: 20, y: 10 },
+		}).setOrigin(0.5).setInteractive({ useHandCursor: true });
+		cancelButton.on('pointerdown', () => this.hideExitConfirmation());
+
+		this.exitConfirmOverlay = this.add.container(
+			0,
+			0,
+			[background, message, confirmButton, cancelButton],
+		);
+	}
+
+	// Cierra la confirmación de salida y mantiene la partida en pausa.
+	hideExitConfirmation() {
+		if (!this.exitConfirmOverlay) {
+			return;
+		}
+
+		this.exitConfirmOverlay.destroy();
+		this.exitConfirmOverlay = null;
 	}
 
 	// Reanuda la partida exactamente donde se quedó: temporizador y
