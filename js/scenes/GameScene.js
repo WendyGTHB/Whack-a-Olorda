@@ -23,6 +23,8 @@ class GameScene extends Phaser.Scene {
 	}
 
 	create() {
+		this.add.image(640, 360, 'bg-game').setDisplaySize(1280, 720);
+
 		// Posiciones de los 6 agujeros (2 filas x 3 columnas), reutilizables
 		// por las tareas siguientes (aparición de personajes, clics, etc.).
 		this.holePositions = [

@@ -5,6 +5,8 @@ class StartScene extends Phaser.Scene {
 	}
 
 	create() {
+		this.add.image(640, 360, 'bg-start').setDisplaySize(1280, 720);
+
 		this.add.text(640, 240, 'Whack-a-Olorda', {
 			fontSize: '64px',
 			color: '#ffffff',

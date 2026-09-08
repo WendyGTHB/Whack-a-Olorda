@@ -1,11 +1,13 @@
-// Precarga assets básicos/placeholders y pasa automáticamente a StartScene.
+// Precarga assets del juego y pasa automáticamente a StartScene.
 class BootScene extends Phaser.Scene {
 	constructor() {
 		super('BootScene');
 	}
 
 	preload() {
-		// Sin assets todavía; se añadirán en tareas posteriores.
+		this.load.image('bg-start', 'assets/images/bg-start.jpeg');
+		this.load.image('bg-game', 'assets/images/bg-game.jpeg');
+		this.load.image('bg-gameover', 'assets/images/bg-gameover.jpeg');
 	}
 
 	create() {

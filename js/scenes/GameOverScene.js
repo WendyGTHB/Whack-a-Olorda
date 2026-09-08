@@ -14,6 +14,8 @@ class GameOverScene extends Phaser.Scene {
 	create() {
 		const highscore = this.updateHighscore(this.score);
 
+		this.add.image(640, 360, 'bg-gameover').setDisplaySize(1280, 720);
+
 		this.add.text(640, 280, 'Game Over', {
 			fontSize: '48px',
 			color: '#ffffff',
