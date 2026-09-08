@@ -43,15 +43,19 @@ class GameScene extends Phaser.Scene {
 		this.score = 0;
 		this.timeLeft = 30;
 
-		this.scoreText = this.add.text(40, 40, `Puntuación: ${this.score}`, {
-			fontSize: '32px',
-			color: '#ffffff',
-		});
+		this.scoreText = this.add.text(
+			40,
+			40,
+			`Puntuación: ${this.score}`,
+			bodyTextStyle('32px'),
+		);
 
-		this.timerText = this.add.text(1240, 40, `Tiempo: ${this.timeLeft}`, {
-			fontSize: '32px',
-			color: '#ffffff',
-		}).setOrigin(1, 0);
+		this.timerText = this.add.text(
+			1240,
+			40,
+			`Tiempo: ${this.timeLeft}`,
+			bodyTextStyle('32px'),
+		).setOrigin(1, 0);
 
 		this.time.addEvent({
 			delay: 1000,
@@ -71,12 +75,12 @@ class GameScene extends Phaser.Scene {
 		});
 
 		this.isPaused = false;
-		this.pauseButton = this.add.text(640, 40, 'Pausa', {
-			fontSize: '28px',
-			color: '#ffffff',
-			backgroundColor: '#37474f',
-			padding: { x: 16, y: 8 },
-		}).setOrigin(0.5, 0).setInteractive({ useHandCursor: true });
+		this.pauseButton = this.add.text(
+			640,
+			40,
+			'Pausa',
+			buttonTextStyle('28px', THEME.colors.buttonNeutral, { x: 16, y: 8 }),
+		).setOrigin(0.5, 0).setInteractive({ useHandCursor: true });
 		this.pauseButton.on('pointerdown', () => this.pauseGame());
 	}
 
@@ -188,25 +192,22 @@ class GameScene extends Phaser.Scene {
 
 	showPauseMenu() {
 		const background = this.add.rectangle(640, 360, 1280, 720, 0x000000, 0.7);
-		const title = this.add.text(640, 260, 'Pausa', {
-			fontSize: '48px',
-			color: '#ffffff',
-		}).setOrigin(0.5);
+		const title = this.add.text(640, 260, 'Pausa', titleTextStyle('48px')).setOrigin(0.5);
 
-		const resumeButton = this.add.text(640, 360, 'Reanudar', {
-			fontSize: '32px',
-			color: '#ffffff',
-			backgroundColor: '#2e7d32',
-			padding: { x: 20, y: 10 },
-		}).setOrigin(0.5).setInteractive({ useHandCursor: true });
+		const resumeButton = this.add.text(
+			640,
+			360,
+			'Reanudar',
+			buttonTextStyle('32px', THEME.colors.buttonPositive, { x: 20, y: 10 }),
+		).setOrigin(0.5).setInteractive({ useHandCursor: true });
 		resumeButton.on('pointerdown', () => this.resumeGame());
 
-		const exitButton = this.add.text(640, 440, 'Salir al inicio', {
-			fontSize: '32px',
-			color: '#ffffff',
-			backgroundColor: '#b71c1c',
-			padding: { x: 20, y: 10 },
-		}).setOrigin(0.5).setInteractive({ useHandCursor: true });
+		const exitButton = this.add.text(
+			640,
+			440,
+			'Salir al inicio',
+			buttonTextStyle('32px', THEME.colors.buttonNegative, { x: 20, y: 10 }),
+		).setOrigin(0.5).setInteractive({ useHandCursor: true });
 		exitButton.on('pointerdown', () => this.showExitConfirmation());
 
 		this.pauseOverlay = this.add.container(0, 0, [background, title, resumeButton, exitButton]);
@@ -219,23 +220,23 @@ class GameScene extends Phaser.Scene {
 			640,
 			320,
 			'¿Seguro que quieres salir?\nPerderás el progreso de esta partida.',
-			{ fontSize: '28px', color: '#ffffff', align: 'center' },
+			bodyTextStyle('28px', { align: 'center' }),
 		).setOrigin(0.5);
 
-		const confirmButton = this.add.text(520, 420, 'Salir', {
-			fontSize: '32px',
-			color: '#ffffff',
-			backgroundColor: '#b71c1c',
-			padding: { x: 20, y: 10 },
-		}).setOrigin(0.5).setInteractive({ useHandCursor: true });
+		const confirmButton = this.add.text(
+			520,
+			420,
+			'Salir',
+			buttonTextStyle('32px', THEME.colors.buttonNegative, { x: 20, y: 10 }),
+		).setOrigin(0.5).setInteractive({ useHandCursor: true });
 		confirmButton.on('pointerdown', () => this.exitToStart());
 
-		const cancelButton = this.add.text(760, 420, 'Cancelar', {
-			fontSize: '32px',
-			color: '#ffffff',
-			backgroundColor: '#37474f',
-			padding: { x: 20, y: 10 },
-		}).setOrigin(0.5).setInteractive({ useHandCursor: true });
+		const cancelButton = this.add.text(
+			760,
+			420,
+			'Cancelar',
+			buttonTextStyle('32px', THEME.colors.buttonNeutral, { x: 20, y: 10 }),
+		).setOrigin(0.5).setInteractive({ useHandCursor: true });
 		cancelButton.on('pointerdown', () => this.hideExitConfirmation());
 
 		this.exitConfirmOverlay = this.add.container(
