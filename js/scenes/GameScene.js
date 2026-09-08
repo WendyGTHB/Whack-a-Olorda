@@ -36,8 +36,10 @@ class GameScene extends Phaser.Scene {
 			{ x: 940, y: 560 },
 		];
 
+		// Se achata la altura para simular perspectiva sobre el césped en
+		// lugar de un círculo visto totalmente desde arriba.
 		this.holePositions.forEach((pos) => {
-			this.add.ellipse(pos.x, pos.y, 160, 100, 0x3e2723);
+			this.add.image(pos.x, pos.y, 'hole').setDisplaySize(180, 120);
 		});
 
 		this.score = 0;

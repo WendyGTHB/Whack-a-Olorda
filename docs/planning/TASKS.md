@@ -282,17 +282,19 @@ viendo con claridad encima.
 colores definitivos, y siguen siendo legibles sobre los fondos ya
 integrados en 15.1.
 
-### 15.3 — Tablero y agujeros
+### 15.3 — Agujeros
 
 **Rama:** `task/15.3-board-holes`
 
-- Añadir en `assets/images/` el sprite del tablero y de los agujeros.
-- Sustituir las elipses placeholder de `GameScene` por estos sprites,
+- Añadir en `assets/images/` el sprite del agujero (no hay tablero
+	independiente: los agujeros se colocan directamente sobre el fondo de
+	césped ya integrado en 15.1).
+- Sustituir las elipses placeholder de `GameScene` por este sprite,
 	ajustando `holePositions` si el nuevo arte lo requiere.
 
-**Verificación:** el tablero se ve con el arte definitivo y los 6 agujeros
-mantienen su posición funcional (aparición y clic de personajes siguen
-funcionando).
+**Verificación:** los 6 agujeros se ven con el arte definitivo sobre el
+fondo de césped y mantienen su posición funcional (aparición y clic de
+personajes siguen funcionando).
 
 ### 15.4 — Personajes: normal, especial y superior
 
