@@ -6,8 +6,10 @@ const config = {
 	parent: 'game-container',
 	scale: {
 		// Escalado responsive manteniendo la proporción 16:9 (Tarea 14).
+		// El centrado lo hace el flexbox de #game-container (css/styles.css)
+		// para evitar que compita con el centrado propio de Phaser.
 		mode: Phaser.Scale.FIT,
-		autoCenter: Phaser.Scale.CENTER_BOTH,
+		autoCenter: Phaser.Scale.NO_CENTER,
 	},
 	scene: [BootScene, StartScene, GameScene, GameOverScene],
 };

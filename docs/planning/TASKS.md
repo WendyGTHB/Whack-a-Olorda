@@ -247,14 +247,99 @@ proporción `16:9` y centra el lienzo, sin deformaciones.
 
 ## Tarea 15 — Arte final e integración de assets
 
-**Rama:** `task/15-visual-assets`
+Sustituir todos los placeholders (colores sólidos, elipses, textos con
+fondo de color) por los sprites definitivos basados en
+`specifications/assets/sketchtopo1.png`, en el siguiente orden: primero los
+fondos, después la tipografía, y por último los elementos gráficos del
+tablero, los personajes y los botones. Cada subtarea se verifica
+visualmente, se integra en `main` y solo entonces se crea la rama de la
+siguiente subtarea.
 
-- Sustituir los placeholders (tablero, agujeros, personajes normal/especial/
-	superior, bomba, fondos y botones) por los sprites definitivos basados en
-	`specifications/assets/sketchtopo1.png`, ubicados en `assets/images/`.
+### 15.1 — Fondos de pantalla
 
-**Verificación:** revisión visual de todas las pantallas (inicio, juego,
-pausa, Game Over) con el arte definitivo, sin roturas de maquetación.
+**Rama:** `task/15-visual-assets` (subtareas 15.1 y 15.2 ya integradas en
+esta misma rama)
+
+- Añadir en `assets/images/` las imágenes de fondo de inicio, juego y
+	Game Over.
+- Sustituir los fondos de color sólido actuales por estas imágenes en
+	`StartScene`, `GameScene` y `GameOverScene` (incluidos los overlays de
+	pausa y confirmación de salida).
+
+**Verificación:** cada pantalla muestra su fondo definitivo en lugar del
+color placeholder, y el resto de elementos (aún sin actualizar) se siguen
+viendo con claridad encima.
+
+### 15.2 — Tipografía y estilos de texto
+
+- Definir la tipografía, tamaños y colores de texto acordes al estilo
+	visual del arte final (título, marcador, temporizador, botones,
+	mensajes de pausa/confirmación, Game Over, puntuación y récord).
+- Aplicar estos estilos a todos los textos existentes en las cuatro
+	escenas, sin cambiar todavía su lógica.
+
+**Verificación:** todos los textos del juego usan la tipografía y los
+colores definitivos, y siguen siendo legibles sobre los fondos ya
+integrados en 15.1.
+
+### 15.3 — Tablero y agujeros
+
+**Rama:** `task/15.3-board-holes`
+
+- Añadir en `assets/images/` el sprite del tablero y de los agujeros.
+- Sustituir las elipses placeholder de `GameScene` por estos sprites,
+	ajustando `holePositions` si el nuevo arte lo requiere.
+
+**Verificación:** el tablero se ve con el arte definitivo y los 6 agujeros
+mantienen su posición funcional (aparición y clic de personajes siguen
+funcionando).
+
+### 15.4 — Personajes: normal, especial y superior
+
+**Rama:** `task/15.4-character-sprites`
+
+- Añadir en `assets/images/` un sprite por cada tipo de personaje.
+- Sustituir las elipses de color de `CHARACTER_TYPES` por estos sprites,
+	sin modificar puntos ni probabilidades (Tarea 8).
+
+**Verificación:** cada tipo de personaje se distingue visualmente por su
+sprite propio; la puntuación otorgada por cada uno sigue siendo correcta.
+
+### 15.5 — Bomba
+
+**Rama:** `task/15.5-bomb-sprite`
+
+- Añadir en `assets/images/` el sprite de la bomba.
+- Sustituir la elipse negra placeholder por este sprite.
+
+**Verificación:** la bomba es claramente distinguible del resto de
+personajes a simple vista y su penalización (-3) sigue funcionando.
+
+### 15.6 — Botones e iconos de interfaz
+
+**Rama:** `task/15.6-ui-buttons`
+
+- Añadir en `assets/images/` el arte de los botones (Start, Pausa,
+	Reanudar, Salir al inicio, Salir/Cancelar, Jugar de nuevo, Volver al
+	inicio).
+- Sustituir los textos con fondo de color placeholder por estos botones,
+	manteniendo su interactividad y comportamiento actuales.
+
+**Verificación:** todos los botones del juego (inicio, pausa, confirmación
+de salida, Game Over) usan el arte definitivo y siguen siendo clicables.
+
+### 15.7 — Revisión visual final
+
+**Rama:** `task/15.7-visual-review`
+
+- Revisar juntas todas las pantallas (inicio, juego, pausa, confirmación
+	de salida, Game Over) buscando descuadres, solapamientos o contrastes
+	insuficientes entre elementos.
+- Ajustar posiciones o escalas puntuales si el arte definitivo lo
+	requiere.
+
+**Verificación (tarea 15 completa):** revisión visual de todas las
+pantallas con el arte definitivo, sin roturas de maquetación.
 
 ---
 
@@ -276,3 +361,5 @@ y es accesible públicamente mediante la URL de GitHub Pages.
 | Fecha | Cambio |
 |---|---|
 | 2026-09-06 | Creación del plan de tareas inicial, ordenado de menor a mayor complejidad, con una rama por tarea y criterios de verificación. |
+| 2026-09-08 | Desglose de la Tarea 15 en 7 subtareas ordenadas (fondos, tipografía, tablero, personajes, bomba, botones, revisión final), cada una con su propia verificación, dentro de la misma rama `task/15-visual-assets`. |
+| 2026-09-08 | Tras integrar 15.1 y 15.2 en `task/15-visual-assets`, se cambia la estrategia: las subtareas 15.3-15.7 pasan a tener cada una su propia rama (`task/15.3-board-holes`, `task/15.4-character-sprites`, `task/15.5-bomb-sprite`, `task/15.6-ui-buttons`, `task/15.7-visual-review`), integrándose en `main` una a una. |
