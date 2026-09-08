@@ -8,6 +8,7 @@ class BootScene extends Phaser.Scene {
 		this.load.image('bg-start', 'assets/images/bg-start.jpeg');
 		this.load.image('bg-game', 'assets/images/bg-game.jpeg');
 		this.load.image('bg-gameover', 'assets/images/bg-gameover.jpeg');
+		this.load.image('hole', 'assets/images/hole.png');
 	}
 
 	create() {
