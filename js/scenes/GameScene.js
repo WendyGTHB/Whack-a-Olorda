@@ -77,12 +77,14 @@ class GameScene extends Phaser.Scene {
 		});
 
 		this.isPaused = false;
-		this.pauseButton = this.add.text(
+		this.pauseButton = createButton(
+			this,
 			640,
 			40,
 			'Pausa',
-			buttonTextStyle('28px', THEME.colors.buttonNeutral, { x: 16, y: 8 }),
-		).setOrigin(0.5, 0).setInteractive({ useHandCursor: true });
+			THEME.colors.buttonNeutral,
+			{ fontSize: '28px', paddingX: 16, paddingY: 8, anchor: 'top' },
+		);
 		this.pauseButton.on('pointerdown', () => this.pauseGame());
 	}
 
@@ -198,27 +200,38 @@ class GameScene extends Phaser.Scene {
 		const background = this.add.rectangle(640, 360, 1280, 720, 0x000000, 0.7);
 		const title = this.add.text(640, 260, 'Pausa', titleTextStyle('48px')).setOrigin(0.5);
 
-		const resumeButton = this.add.text(
+		this.resumeButton = createButton(
+			this,
 			640,
 			360,
 			'Reanudar',
-			buttonTextStyle('32px', THEME.colors.buttonPositive, { x: 20, y: 10 }),
-		).setOrigin(0.5).setInteractive({ useHandCursor: true });
-		resumeButton.on('pointerdown', () => this.resumeGame());
+			THEME.colors.buttonPositive,
+		);
+		this.resumeButton.on('pointerdown', () => this.resumeGame());
 
-		const exitButton = this.add.text(
+		this.exitButton = createButton(
+			this,
 			640,
 			440,
 			'Salir al inicio',
-			buttonTextStyle('32px', THEME.colors.buttonNegative, { x: 20, y: 10 }),
-		).setOrigin(0.5).setInteractive({ useHandCursor: true });
-		exitButton.on('pointerdown', () => this.showExitConfirmation());
+			THEME.colors.buttonNegative,
+		);
+		this.exitButton.on('pointerdown', () => this.showExitConfirmation());
 
-		this.pauseOverlay = this.add.container(0, 0, [background, title, resumeButton, exitButton]);
+		this.pauseOverlay = this.add.container(
+			0,
+			0,
+			[background, title, this.resumeButton, this.exitButton],
+		);
 	}
 
 	// Muestra la confirmación antes de descartar la partida desde la pausa.
+	// Los botones de la pausa quedan debajo visualmente, pero Phaser no
+	// bloquea su input solo por eso: hay que desactivarlos a mano.
 	showExitConfirmation() {
+		this.resumeButton.disableInteractive();
+		this.exitButton.disableInteractive();
+
 		const background = this.add.rectangle(640, 360, 1280, 720, 0x000000, 0.85);
 		const message = this.add.text(
 			640,
@@ -227,20 +240,22 @@ class GameScene extends Phaser.Scene {
 			bodyTextStyle('28px', { align: 'center' }),
 		).setOrigin(0.5);
 
-		const confirmButton = this.add.text(
+		const confirmButton = createButton(
+			this,
 			520,
 			420,
 			'Salir',
-			buttonTextStyle('32px', THEME.colors.buttonNegative, { x: 20, y: 10 }),
-		).setOrigin(0.5).setInteractive({ useHandCursor: true });
+			THEME.colors.buttonNegative,
+		);
 		confirmButton.on('pointerdown', () => this.exitToStart());
 
-		const cancelButton = this.add.text(
+		const cancelButton = createButton(
+			this,
 			760,
 			420,
 			'Cancelar',
-			buttonTextStyle('32px', THEME.colors.buttonNeutral, { x: 20, y: 10 }),
-		).setOrigin(0.5).setInteractive({ useHandCursor: true });
+			THEME.colors.buttonNeutral,
+		);
 		cancelButton.on('pointerdown', () => this.hideExitConfirmation());
 
 		this.exitConfirmOverlay = this.add.container(
@@ -258,6 +273,8 @@ class GameScene extends Phaser.Scene {
 
 		this.exitConfirmOverlay.destroy();
 		this.exitConfirmOverlay = null;
+		this.resumeButton.setInteractive();
+		this.exitButton.setInteractive();
 	}
 
 	// Reanuda la partida exactamente donde se quedó: temporizador y

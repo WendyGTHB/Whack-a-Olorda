@@ -321,11 +321,16 @@ personajes a simple vista y su penalización (-3) sigue funcionando.
 
 **Rama:** `task/15.6-ui-buttons`
 
-- Añadir en `assets/images/` el arte de los botones (Start, Pausa,
-	Reanudar, Salir al inicio, Salir/Cancelar, Jugar de nuevo, Volver al
-	inicio).
-- Sustituir los textos con fondo de color placeholder por estos botones,
-	manteniendo su interactividad y comportamiento actuales.
+- Sin añadir nuevas imágenes: mejorar el aspecto de los botones (Start,
+	Pausa, Reanudar, Salir al inicio, Salir/Cancelar, Jugar de nuevo,
+	Volver al inicio) usando únicamente Phaser (formas `Graphics` con
+	esquinas redondeadas, sombra y estados `hover`/`pressed`).
+- Extraer un helper reutilizable en `theme.js` (p. ej. `createButton`) que
+	genere estos botones a partir de un texto y una variante de color,
+	manteniendo la interactividad y el comportamiento actuales de cada uno.
+- Sustituir las llamadas a `buttonTextStyle` (texto con fondo de color
+	plano) por este nuevo helper en `StartScene`, `GameScene` y
+	`GameOverScene`.
 
 **Verificación:** todos los botones del juego (inicio, pausa, confirmación
 de salida, Game Over) usan el arte definitivo y siguen siendo clicables.
@@ -365,3 +370,4 @@ y es accesible públicamente mediante la URL de GitHub Pages.
 | 2026-09-06 | Creación del plan de tareas inicial, ordenado de menor a mayor complejidad, con una rama por tarea y criterios de verificación. |
 | 2026-09-08 | Desglose de la Tarea 15 en 7 subtareas ordenadas (fondos, tipografía, tablero, personajes, bomba, botones, revisión final), cada una con su propia verificación, dentro de la misma rama `task/15-visual-assets`. |
 | 2026-09-08 | Tras integrar 15.1 y 15.2 en `task/15-visual-assets`, se cambia la estrategia: las subtareas 15.3-15.7 pasan a tener cada una su propia rama (`task/15.3-board-holes`, `task/15.4-character-sprites`, `task/15.5-bomb-sprite`, `task/15.6-ui-buttons`, `task/15.7-visual-review`), integrándose en `main` una a una. |
+| 2026-09-13 | La subtarea 15.6 cambia de enfoque: en lugar de añadir imágenes de botones, se mejora su aspecto con Phaser (formas `Graphics` redondeadas, sombra, estados hover/pressed) mediante un helper reutilizable en `theme.js`, sin nuevos assets. |
