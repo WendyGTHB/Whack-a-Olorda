@@ -350,9 +350,28 @@ pantallas con el arte definitivo, sin roturas de maquetación.
 
 ---
 
-## Tarea 16 — Pulido final, pruebas cruzadas y publicación
+## Tarea 16 — Comunicar al jugador la puntuación de cada personaje
 
-**Rama:** `task/16-polish-qa-deploy`
+**Rama:** `task/16-score-feedback`
+
+- En `StartScene`, mostrar una leyenda con los sprites de los cuatro tipos
+	de personaje (`normal`, `especial`, `superior`, `bomba`) junto a su
+	puntuación (`+1`, `+2`, `+5`, `-3`), sin modificar `CHARACTER_TYPES`
+	(Tarea 8).
+- En `GameScene`, al golpear un personaje, mostrar sobre su agujero un
+	texto flotante con el valor sumado o restado (p. ej. `+1`, `-3`) que
+	suba y se desvanezca con un tween antes de destruirse.
+
+**Verificación:** antes de empezar la partida, la leyenda de `StartScene`
+muestra correctamente la puntuación de cada personaje; durante la partida,
+cada clic sobre un personaje muestra su valor flotante correspondiente sin
+afectar al resto de la interfaz ni a la puntuación final.
+
+---
+
+## Tarea 17 — Pulido final, pruebas cruzadas y publicación
+
+**Rama:** `task/17-polish-qa-deploy`
 
 - Probar el juego en las últimas versiones de Chrome, Firefox, Edge y Safari.
 - Revisar el cumplimiento completo de los requisitos funcionales de
@@ -371,3 +390,5 @@ y es accesible públicamente mediante la URL de GitHub Pages.
 | 2026-09-08 | Desglose de la Tarea 15 en 7 subtareas ordenadas (fondos, tipografía, tablero, personajes, bomba, botones, revisión final), cada una con su propia verificación, dentro de la misma rama `task/15-visual-assets`. |
 | 2026-09-08 | Tras integrar 15.1 y 15.2 en `task/15-visual-assets`, se cambia la estrategia: las subtareas 15.3-15.7 pasan a tener cada una su propia rama (`task/15.3-board-holes`, `task/15.4-character-sprites`, `task/15.5-bomb-sprite`, `task/15.6-ui-buttons`, `task/15.7-visual-review`), integrándose en `main` una a una. |
 | 2026-09-13 | La subtarea 15.6 cambia de enfoque: en lugar de añadir imágenes de botones, se mejora su aspecto con Phaser (formas `Graphics` redondeadas, sombra, estados hover/pressed) mediante un helper reutilizable en `theme.js`, sin nuevos assets. |
+| 2026-09-13 | Se añade la Tarea 16 (`task/16-score-feedback`) para comunicar al jugador la puntuación de cada personaje mediante una leyenda en `StartScene` y texto flotante en `GameScene`; la antigua Tarea 16 (pulido final, QA y publicación) pasa a ser la Tarea 17. |
+| 2026-09-13 | Revisión visual final de la subtarea 15.7: se revisan juntas todas las pantallas (inicio, juego, pausa, confirmación de salida, Game Over) y no se detectan descuadres, solapamientos ni contrastes insuficientes; no se requieren ajustes de código. |
