@@ -8,13 +8,13 @@ const CHARACTER_SPAWN_DELAY = 800;
 const CHARACTER_MIN_VISIBLE_TIME = 1000;
 const CHARACTER_MAX_VISIBLE_TIME = 2000;
 
-// Tipos de personaje con sus puntos, sprite (o color placeholder si aún no
-// tiene sprite definitivo) y probabilidad de aparición (deben sumar 1).
+// Tipos de personaje con sus puntos, sprite y probabilidad de
+// aparición (deben sumar 1).
 const CHARACTER_TYPES = [
 	{ name: 'normal', points: 1, sprite: 'normal-mole', probability: 0.5 },
 	{ name: 'especial', points: 2, sprite: 'special-mole', probability: 0.15 },
 	{ name: 'superior', points: 5, sprite: 'super-mole', probability: 0.1 },
-	{ name: 'bomba', points: -3, color: 0x212121, probability: 0.25 },
+	{ name: 'bomba', points: -3, sprite: 'bomb-mole', probability: 0.25 },
 ];
 
 class GameScene extends Phaser.Scene {
