@@ -32,26 +32,28 @@ class GameOverScene extends Phaser.Scene {
 			bodyTextStyle('32px'),
 		).setOrigin(0.5);
 
-		const restartButton = this.add.text(
+		const restartButton = createButton(
+			this,
 			640,
-			490,
+			480,
 			'Jugar de nuevo',
-			buttonTextStyle('32px', THEME.colors.buttonPositive),
-		).setOrigin(0.5);
+			THEME.colors.buttonPositive,
+			{ width: 340 },
+		);
 
-		restartButton.setInteractive({ useHandCursor: true });
 		restartButton.on('pointerdown', () => {
 			this.scene.start('GameScene');
 		});
 
-		const menuButton = this.add.text(
+		const menuButton = createButton(
+			this,
 			640,
-			560,
+			570,
 			'Volver al inicio',
-			buttonTextStyle('32px', THEME.colors.buttonNeutral),
-		).setOrigin(0.5);
+			THEME.colors.buttonNeutral,
+			{ width: 340 },
+		);
 
-		menuButton.setInteractive({ useHandCursor: true });
 		menuButton.on('pointerdown', () => {
 			this.scene.start('StartScene');
 		});

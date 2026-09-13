@@ -9,14 +9,15 @@ class StartScene extends Phaser.Scene {
 
 		this.add.text(640, 240, 'Whack-a-Olorda', titleTextStyle('64px')).setOrigin(0.5);
 
-		const startButton = this.add.text(
+		const startButton = createButton(
+			this,
 			640,
-			420,
+			360,
 			'Start',
-			buttonTextStyle('40px', THEME.colors.buttonPositive),
-		).setOrigin(0.5);
+			THEME.colors.buttonPositive,
+			{ fontSize: '40px' },
+		);
 
-		startButton.setInteractive({ useHandCursor: true });
 		startButton.on('pointerdown', () => {
 			this.scene.start('GameScene');
 		});
