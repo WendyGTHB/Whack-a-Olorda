@@ -354,18 +354,20 @@ pantallas con el arte definitivo, sin roturas de maquetación.
 
 **Rama:** `task/16-score-feedback`
 
-- En `StartScene`, mostrar una leyenda con los sprites de los cuatro tipos
-	de personaje (`normal`, `especial`, `superior`, `bomba`) junto a su
-	puntuación (`+1`, `+2`, `+5`, `-3`), sin modificar `CHARACTER_TYPES`
-	(Tarea 8).
+- En `StartScene`, añadir un botón de ayuda (`?`) que abra un panel con el
+	objetivo del juego y una leyenda con los sprites de los cuatro tipos de
+	personaje (`normal`, `especial`, `superior`, `bomba`) junto a su puntuación
+	(`+1`, `+2`, `+5`, `-3`), sin modificar `CHARACTER_TYPES` (Tarea 8). El panel
+	se cierra con un botón `Cerrar`.
 - En `GameScene`, al golpear un personaje, mostrar sobre su agujero un
 	texto flotante con el valor sumado o restado (p. ej. `+1`, `-3`) que
 	suba y se desvanezca con un tween antes de destruirse.
 
-**Verificación:** antes de empezar la partida, la leyenda de `StartScene`
-muestra correctamente la puntuación de cada personaje; durante la partida,
-cada clic sobre un personaje muestra su valor flotante correspondiente sin
-afectar al resto de la interfaz ni a la puntuación final.
+**Verificación:** al pulsar el botón de ayuda en la pantalla de inicio se
+muestra el objetivo del juego y la puntuación de cada personaje, y se puede
+cerrar sin afectar al botón `Start`; durante la partida, cada clic sobre un
+personaje muestra su valor flotante correspondiente sin afectar al resto de
+la interfaz ni a la puntuación final.
 
 ---
 
@@ -392,3 +394,4 @@ y es accesible públicamente mediante la URL de GitHub Pages.
 | 2026-09-13 | La subtarea 15.6 cambia de enfoque: en lugar de añadir imágenes de botones, se mejora su aspecto con Phaser (formas `Graphics` redondeadas, sombra, estados hover/pressed) mediante un helper reutilizable en `theme.js`, sin nuevos assets. |
 | 2026-09-13 | Se añade la Tarea 16 (`task/16-score-feedback`) para comunicar al jugador la puntuación de cada personaje mediante una leyenda en `StartScene` y texto flotante en `GameScene`; la antigua Tarea 16 (pulido final, QA y publicación) pasa a ser la Tarea 17. |
 | 2026-09-13 | Revisión visual final de la subtarea 15.7: se revisan juntas todas las pantallas (inicio, juego, pausa, confirmación de salida, Game Over) y no se detectan descuadres, solapamientos ni contrastes insuficientes; no se requieren ajustes de código. |
+| 2026-09-14 | La Tarea 16 cambia de enfoque: en lugar de una leyenda siempre visible en `StartScene`, se añade un botón de ayuda (`?`) que abre bajo demanda un panel con el objetivo del juego y la puntuación de cada personaje, para no competir visualmente con el título y el botón `Start`. |

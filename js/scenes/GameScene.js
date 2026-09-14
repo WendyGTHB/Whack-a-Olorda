@@ -172,9 +172,28 @@ class GameScene extends Phaser.Scene {
 		}
 
 		character.hideTimer.remove();
-		this.score = Math.max(0, this.score + character.characterType.points);
+		const { points } = character.characterType;
+		this.score = Math.max(0, this.score + points);
 		this.scoreText.setText(`Puntuación: ${this.score}`);
+		this.showScorePopup(character.x, character.y, points);
 		this.hideCharacter(holeIndex);
+	}
+
+	// Texto flotante con el valor sumado o restado al golpear un personaje,
+	// que sube y se desvanece antes de destruirse (Tarea 16).
+	showScorePopup(x, y, points) {
+		const label = points > 0 ? `+${points}` : `${points}`;
+		const color = points > 0 ? THEME.colors.buttonPositive : THEME.colors.buttonNegative;
+		const popup = this.add.text(x, y, label, bodyTextStyle('36px', { color })).setOrigin(0.5);
+
+		this.tweens.add({
+			targets: popup,
+			y: y - 80,
+			alpha: 0,
+			duration: 1400,
+			ease: 'Cubic.easeOut',
+			onComplete: () => popup.destroy(),
+		});
 	}
 
 	// Detiene el temporizador y la aparición de personajes, y muestra el

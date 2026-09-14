@@ -62,6 +62,11 @@ El diseño inicial se encuentra en `assets/sketchtopo1.png` e incluye:
 - Asignar `+5` puntos al personaje superior.
 - Restar `-3` puntos al hacer clic sobre la bomba, sin ningún otro efecto sobre
 	la partida.
+- Incluir en la pantalla de inicio un botón de ayuda que muestre, bajo
+	demanda, un panel con el objetivo del juego y la puntuación asociada a cada
+	tipo de personaje (normal, especial, superior y bomba).
+- Mostrar, al hacer clic sobre un personaje durante la partida, un indicador
+	visual temporal con el valor de puntos sumado o restado en ese golpe.
 - No aplicar ninguna penalización cuando el jugador haga clic sobre un agujero
 	vacío o sobre el tablero fuera de un personaje.
 - Impedir que la puntuación baje de `0`: si una penalización dejaría la
@@ -100,14 +105,16 @@ inicial de `0`.
 
 ## Flujo de pantallas
 
-1. **Pantalla de inicio:** muestra el botón `Start`. El temporizador todavía no
-	 ha comenzado.
+1. **Pantalla de inicio:** muestra el botón `Start` y un botón de ayuda que
+	 abre, bajo demanda, un panel con el objetivo del juego y la puntuación de
+	 cada tipo de personaje. El temporizador todavía no ha comenzado.
 2. **Pantalla de juego:** se inicia al pulsar `Start`, comienza la cuenta atrás
 	 desde 30 segundos y se puede interactuar con los personajes mediante el
-	 ratón. Un botón de pausa detiene el temporizador y la aparición de
-	 personajes, mostrando un menú con las opciones `Reanudar` y
-	 `Salir al inicio`; esta última pide confirmación antes de abandonar la
-	 partida, ya que el progreso se pierde.
+	 ratón; cada clic sobre un personaje muestra además un indicador visual
+	 temporal con los puntos sumados o restados. Un botón de pausa detiene el
+	 temporizador y la aparición de personajes, mostrando un menú con las
+	 opciones `Reanudar` y `Salir al inicio`; esta última pide confirmación
+	 antes de abandonar la partida, ya que el progreso se pierde.
 3. **Pantalla de Game Over:** aparece cuando el temporizador llega a cero y
 	 muestra la puntuación de la última partida y el récord personal. Desde esta
 	 pantalla se puede volver a jugar o regresar al inicio.
