@@ -8,6 +8,7 @@ const THEME = {
 		buttonPositive: '#2e7d32',
 		buttonNeutral: '#5d4037',
 		buttonNegative: '#b71c1c',
+		buttonInfo: '#7b5fb3',
 	},
 	fontFamily: '"Comic Sans MS", "Trebuchet MS", "Segoe UI", sans-serif',
 };
