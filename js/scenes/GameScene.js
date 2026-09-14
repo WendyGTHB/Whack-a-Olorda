@@ -7,6 +7,9 @@
 const CHARACTER_SPAWN_DELAY = 800;
 const CHARACTER_MIN_VISIBLE_TIME = 1000;
 const CHARACTER_MAX_VISIBLE_TIME = 2000;
+// Tiempo mínimo que un agujero queda vacío antes de poder reutilizarse, para
+// que no parezca que ya había otro personaje esperando debajo.
+const HOLE_COOLDOWN_TIME = 500;
 
 // Tipos de personaje con sus puntos, sprite y probabilidad de
 // aparición (deben sumar 1).
@@ -68,6 +71,8 @@ class GameScene extends Phaser.Scene {
 
 		// Estado de ocupación de cada agujero y personaje visible en él.
 		this.holeCharacters = new Array(this.holePositions.length).fill(null);
+		// Instante hasta el que cada agujero permanece en cooldown tras vaciarse.
+		this.holeCooldownUntil = new Array(this.holePositions.length).fill(0);
 
 		this.spawnEvent = this.time.addEvent({
 			delay: CHARACTER_SPAWN_DELAY,
@@ -111,7 +116,8 @@ class GameScene extends Phaser.Scene {
 	spawnCharacter() {
 		const freeHoleIndexes = this.holeCharacters
 			.map((character, index) => (character ? -1 : index))
-			.filter((index) => index !== -1);
+			.filter((index) => index !== -1)
+			.filter((index) => this.time.now >= this.holeCooldownUntil[index]);
 
 		if (freeHoleIndexes.length === 0) {
 			return;
@@ -164,6 +170,7 @@ class GameScene extends Phaser.Scene {
 
 		character.destroy();
 		this.holeCharacters[holeIndex] = null;
+		this.holeCooldownUntil[holeIndex] = this.time.now + HOLE_COOLDOWN_TIME;
 	}
 
 	onCharacterClicked(holeIndex) {
