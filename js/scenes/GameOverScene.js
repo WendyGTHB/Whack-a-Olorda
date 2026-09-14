@@ -16,19 +16,19 @@ class GameOverScene extends Phaser.Scene {
 
 		this.add.image(640, 360, 'bg-gameover').setDisplaySize(1280, 720);
 
-		this.add.text(640, 280, 'Game Over', titleTextStyle('48px')).setOrigin(0.5);
+		this.add.text(640, 280, 'Fi de la partida', titleTextStyle('48px')).setOrigin(0.5);
 
 		this.add.text(
 			640,
 			360,
-			`Puntuación: ${this.score}`,
+			`Puntuació: ${this.score}`,
 			bodyTextStyle('32px'),
 		).setOrigin(0.5);
 
 		this.add.text(
 			640,
 			410,
-			`Récord: ${highscore}`,
+			`Rècord: ${highscore}`,
 			bodyTextStyle('32px'),
 		).setOrigin(0.5);
 
@@ -36,7 +36,7 @@ class GameOverScene extends Phaser.Scene {
 			this,
 			640,
 			480,
-			'Jugar de nuevo',
+			'Jugar de nou',
 			THEME.colors.buttonPositive,
 			{ width: 340 },
 		);
@@ -49,7 +49,7 @@ class GameOverScene extends Phaser.Scene {
 			this,
 			640,
 			570,
-			'Volver al inicio',
+			"Tornar a l'inici",
 			THEME.colors.buttonNeutral,
 			{ width: 340 },
 		);
