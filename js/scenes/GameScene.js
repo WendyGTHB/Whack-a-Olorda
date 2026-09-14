@@ -77,6 +77,7 @@ class GameScene extends Phaser.Scene {
 		});
 
 		this.isPaused = false;
+		this.time.paused = false;
 		this.pauseButton = createButton(
 			this,
 			640,
@@ -318,6 +319,7 @@ class GameScene extends Phaser.Scene {
 
 	// Descarta la partida en curso y vuelve a la pantalla de inicio.
 	exitToStart() {
+		this.time.paused = false;
 		this.spawnEvent.remove();
 		this.scene.start('StartScene');
 	}
