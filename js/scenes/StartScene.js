@@ -13,7 +13,7 @@ class StartScene extends Phaser.Scene {
 			this,
 			640,
 			360,
-			'Start',
+			'Començar',
 			THEME.colors.buttonPositive,
 			{ fontSize: '40px' },
 		);
@@ -42,19 +42,19 @@ class StartScene extends Phaser.Scene {
 		this.helpButton.disableInteractive();
 
 		const background = this.add.rectangle(640, 360, 1280, 720, 0x000000, 0.7);
-		const title = this.add.text(640, 130, 'Cómo jugar', titleTextStyle('44px')).setOrigin(0.5);
+		const title = this.add.text(640, 130, 'Com jugar', titleTextStyle('44px')).setOrigin(0.5);
 
 		const objective = this.add.text(
 			640,
 			200,
-			'Haz clic sobre los personajes antes de que se acabe el tiempo.\n¡Evita la bomba!',
+			'Fes clic als personatges abans que s\'acabi el temps.\nEvita la bomba!',
 			bodyTextStyle('24px', { align: 'center' }),
 		).setOrigin(0.5);
 
 		const legendTitle = this.add.text(
 			640,
 			320,
-			'Puntuación de cada personaje',
+			'Puntuació de cada personatge',
 			bodyTextStyle('26px'),
 		).setOrigin(0.5);
 
@@ -74,7 +74,7 @@ class StartScene extends Phaser.Scene {
 			this,
 			640,
 			560,
-			'Cerrar',
+			'Tancar',
 			THEME.colors.buttonNeutral,
 		);
 		closeButton.on('pointerdown', () => this.hideHelpPanel());

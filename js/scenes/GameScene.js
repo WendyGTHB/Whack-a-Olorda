@@ -51,14 +51,14 @@ class GameScene extends Phaser.Scene {
 		this.scoreText = this.add.text(
 			40,
 			40,
-			`Puntuación: ${this.score}`,
+			`Puntuació: ${this.score}`,
 			bodyTextStyle('32px'),
 		);
 
 		this.timerText = this.add.text(
 			1240,
 			40,
-			`Tiempo: ${this.timeLeft}`,
+			`Temps: ${this.timeLeft}`,
 			bodyTextStyle('32px'),
 		).setOrigin(1, 0);
 
@@ -100,7 +100,7 @@ class GameScene extends Phaser.Scene {
 		}
 
 		this.timeLeft -= 1;
-		this.timerText.setText(`Tiempo: ${this.timeLeft}`);
+		this.timerText.setText(`Temps: ${this.timeLeft}`);
 
 		if (this.timeLeft <= 0) {
 			this.endGame();
@@ -182,7 +182,7 @@ class GameScene extends Phaser.Scene {
 		character.hideTimer.remove();
 		const { points } = character.characterType;
 		this.score = Math.max(0, this.score + points);
-		this.scoreText.setText(`Puntuación: ${this.score}`);
+		this.scoreText.setText(`Puntuació: ${this.score}`);
 		this.showScorePopup(character.x, character.y, points);
 		this.hideCharacter(holeIndex);
 	}
@@ -231,7 +231,7 @@ class GameScene extends Phaser.Scene {
 			this,
 			640,
 			360,
-			'Reanudar',
+			'Reprendre',
 			THEME.colors.buttonPositive,
 		);
 		this.resumeButton.on('pointerdown', () => this.resumeGame());
@@ -240,7 +240,7 @@ class GameScene extends Phaser.Scene {
 			this,
 			640,
 			440,
-			'Salir al inicio',
+			"Sortir a l'inici",
 			THEME.colors.buttonNegative,
 		);
 		this.exitButton.on('pointerdown', () => this.showExitConfirmation());
@@ -263,7 +263,7 @@ class GameScene extends Phaser.Scene {
 		const message = this.add.text(
 			640,
 			320,
-			'¿Seguro que quieres salir?\nPerderás el progreso de esta partida.',
+			"Segur que vols sortir?\nPerdràs el progrés d'aquesta partida.",
 			bodyTextStyle('28px', { align: 'center' }),
 		).setOrigin(0.5);
 
@@ -271,7 +271,7 @@ class GameScene extends Phaser.Scene {
 			this,
 			520,
 			420,
-			'Salir',
+			'Sortir',
 			THEME.colors.buttonNegative,
 		);
 		confirmButton.on('pointerdown', () => this.exitToStart());
